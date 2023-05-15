@@ -8,6 +8,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Matheus Melgaço
 * Rafaela Ferreira
 * Ricardo Alencar
+* Sara Gomes 
 
 
 ## Professores responsáveis
