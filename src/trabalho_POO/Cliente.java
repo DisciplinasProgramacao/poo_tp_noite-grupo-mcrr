@@ -30,6 +30,15 @@ public class Cliente {
                 result.add(serie);
             }
         }
+        for (Serie serie : listaAssistidas) {
+            if (serie.getNome().equals(nome) && serie.getGenero().equals(genero) && serie.getIdioma().equals(idioma)) {
+                result.add(serie);
+            }
+        }
         return result;
+    }
+
+    public String getLogin() {
+        return login;
     }
 }

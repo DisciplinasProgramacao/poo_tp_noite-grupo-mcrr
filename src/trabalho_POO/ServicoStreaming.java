@@ -29,4 +29,39 @@ public class ServicoStreaming {
         }
         return result;
     }
+    public void carregarDados(String clientesArquivo, String seriesArquivo, String audienciaArquivo) throws IOException {
+        this.clientes = csvReader.readClientes(clientesArquivo);
+        this.series = csvReader.readSeries(seriesArquivo);
+        List<Auditoria> auditorias = csvReader.readAudiencia(audienciaArquivo);
+
+        for (Auditoria auditoria : auditorias) {
+            Cliente cliente = findClienteByLogin(auditoria.getLogin());
+            Serie serie = findSerieById(auditoria.getIdSerie());
+            if (cliente != null && serie != null) {
+                if (auditoria.getTipo() == 'F') {
+                    cliente.adicionarParaAssistir(serie);
+                } else if (auditoria.getTipo() == 'A') {
+                    cliente.adicionarAssistida(serie);
+                }
+            }
+        }
+    }
+
+    private Cliente findClienteByLogin(String login) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getLogin().equals(login)) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    private Serie findSerieById(int id) {
+        for (Serie serie : series) {
+            if (serie.getIdSerie() == id) {
+                return serie;
+            }
+        }
+        return null;
+    }
 }
