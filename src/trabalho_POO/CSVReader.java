@@ -36,7 +36,8 @@ public class CSVReader {
 
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(";");
-            series.add(new Serie(Integer.parseInt(parts[0]), parts[1], parts[2], "", ""));
+            series.add(new Serie(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3])); 
+            // assumindo que id, nome, idioma e genero estão nas posições corretas
         }
 
         reader.close();
@@ -60,3 +61,4 @@ public class CSVReader {
         return auditorias;
     }
 }
+

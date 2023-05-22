@@ -1,12 +1,13 @@
 package trabalho_POO;
 
 public class Serie {
+	private int id;
     private String nome;
     private String idioma;
     private String genero;
     private int numeroDeVisualizacoes;
 
-    public Serie(String nome, String idioma, String genero) {
+    public Serie(int id, String nome, String idioma, String genero) {
         this.nome = nome;
         this.idioma = idioma;
         this.genero = genero;
@@ -28,5 +29,9 @@ public class Serie {
     public String getGenero() {
         return genero;
     }
+    public int getId() {
+        return id;
+    }
+    
 }
 

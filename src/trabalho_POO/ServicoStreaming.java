@@ -1,11 +1,13 @@
 package trabalho_POO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServicoStreaming {
     private List<Cliente> clientes;
     private List<Serie> series;
+    private CSVReader csvReader;
 
     public ServicoStreaming() {
         this.clientes = new ArrayList<>();
@@ -32,6 +34,7 @@ public class ServicoStreaming {
     public void carregarDados(String clientesArquivo, String seriesArquivo, String audienciaArquivo) throws IOException {
         this.clientes = csvReader.readClientes(clientesArquivo);
         this.series = csvReader.readSeries(seriesArquivo);
+        this.csvReader = new CSVReader();
         List<Auditoria> auditorias = csvReader.readAudiencia(audienciaArquivo);
 
         for (Auditoria auditoria : auditorias) {
@@ -58,7 +61,7 @@ public class ServicoStreaming {
 
     private Serie findSerieById(int id) {
         for (Serie serie : series) {
-            if (serie.getIdSerie() == id) {
+            if (serie.getId() == id) {
                 return serie;
             }
         }
