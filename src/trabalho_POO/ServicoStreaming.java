@@ -7,11 +7,13 @@ import java.util.List;
 public class ServicoStreaming {
     private List<Cliente> clientes;
     private List<Serie> series;
+    private List<Filme> filmes;
     private CSVReader csvReader;
 
     public ServicoStreaming() {
         this.clientes = new ArrayList<>();
         this.series = new ArrayList<>();
+        this.filmes = new ArrayList<>();
     }
 
     public void adicionarCliente(Cliente cliente) {
@@ -49,6 +51,17 @@ public class ServicoStreaming {
             }
         }
     }
+    public void adicionarFilme(Filme filme) {
+        this.filmes.add(filme);
+    }
+    
+    public void carregarFilmes(String filmesArquivo) throws IOException {
+        List<Filme> filmes = csvReader.readFilmes(filmesArquivo);
+        for (Filme filme : filmes) {
+        	this.adicionarFilme(filme);
+        }
+    }
+    
 
     private Cliente findClienteByLogin(String login) {
         for (Cliente cliente : clientes) {
