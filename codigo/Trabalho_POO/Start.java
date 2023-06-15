@@ -559,6 +559,7 @@ public class Start {
 
                                 if (senhaCorreta) {
                                     service.DeleteUser();
+                                    ClearScreen();
                                 }
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
@@ -660,10 +661,10 @@ public class Start {
     }
 
     public static void main(String[] args) {
-        String pathClienteData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr\\codigo\\src\\Trabalho_POO\\lib\\POO_Espectadores.csv";
-        String pathSeriesData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr\\codigo\\src\\Trabalho_POO\\lib\\POO_Series.csv";
-        String pathFilmesData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr\\codigo\\src\\Trabalho_POO\\lib\\POO_Filmes.csv";
-        String pathAudienciaData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr\\codigo\\src\\Trabalho_POO\\lib\\POO_Audiencia.csv";
+        String pathClienteData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr-master\\codigo\\Trabalho_POO\\lib\\POO_Espectadores.csv";
+        String pathSeriesData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr-master\\codigo\\Trabalho_POO\\lib\\POO_Series.csv";
+        String pathFilmesData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr-master\\codigo\\Trabalho_POO\\lib\\POO_Filmes.csv";
+        String pathAudienciaData = "C:\\Users\\LENOVO\\Desktop\\POO\\poo_tp_noite-grupo-mcrr-master\\codigo\\Trabalho_POO\\lib\\POO_Audiencia.csv";
         try (Scanner ent = new Scanner(System.in)) {
             ServicoStreaming service = new ServicoStreaming(pathClienteData, pathSeriesData, pathFilmesData,
                     pathAudienciaData);

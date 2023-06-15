@@ -111,6 +111,8 @@ public class ServicoStreaming {
                 System.out.println("Conta deletada com sucesso");
             }
         }
+        clienteAtual = null;
+        Logout();
     }
 
     /**
@@ -290,11 +292,20 @@ public class ServicoStreaming {
      * @throws MediaNotFoundException
      */
     public Midia findMediaByTitle(String title, ArrayList<Midia> midias) throws MediaNotFoundException {
+        Midia midiaResponse = null;
         for (Midia midia : midias) {
             if (midia.titulo.equalsIgnoreCase(title))
-                return midia;
+                midiaResponse = midia;
         }
-        throw new MediaNotFoundException("Nenhuma mídia encontrada com o titulo: " + title);
+        if (midiaResponse.EhLancamento()) {
+            if (clienteAtual.EhEspecialista()) {
+                return midiaResponse;
+            } else {
+                throw new MediaNotFoundException("Nenhuma mídia encontrada com o titulo: " + title);
+            }
+        } else {
+            return midiaResponse;
+        }
     }
 
     /**
