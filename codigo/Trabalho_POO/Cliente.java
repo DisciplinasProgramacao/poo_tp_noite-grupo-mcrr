@@ -9,7 +9,7 @@ import Trabalho_POO.models.Midia;
 
 public class Cliente {
     // #region Properties
-    private static final int QUANTIDADE_DE_MEDIA_PROFSSIONAL = 5;
+    private static final int QUANTIDADE_DE_MIDIA_PROFSSIONAL = 5;
     private int quantidadeDeMediasAssitidas;
     private boolean especialista;
     private ArrayList<Midia> midiasAssistidas;
@@ -60,22 +60,29 @@ public class Cliente {
      * 
      * @param midia
      */
-    public void AdicionarMidiaAssistida(Midia midia) {
+    public void AdicionarMidiaAssistida(Midia midia) throws Exception {
         for (Midia midiaVerificar : midiasAssistidas) {
             if (midiaVerificar.Id == midia.Id) {
-                System.out.println("Só é possível marcar como assistida uma vez");
-                System.out.println();
-                return;
+                throw new Exception("Só é possível marcar como assistida uma vez");
             }
         }
         this.midiasAssistidas.add(midia);
         quantidadeDeMediasAssitidas++;
         String mensagem = midia.titulo + " marcado como assistido com sucesso!";
-        System.out.println();
         System.out.println(mensagem);
-        if (quantidadeDeMediasAssitidas >= QUANTIDADE_DE_MEDIA_PROFSSIONAL) {
+        if (quantidadeDeMediasAssitidas >= QUANTIDADE_DE_MIDIA_PROFSSIONAL) {
             especialista = true;
         }
+    }
+
+    /**
+     * Método para marcar uma midia como assistida em carregamento de dados
+     * 
+     * @param midia
+     */
+    public void AdicionarMidiaAssistida(Midia midia, boolean carregamento) {
+        this.midiasAssistidas.add(midia);
+        quantidadeDeMediasAssitidas++;
     }
 
     /**
@@ -92,17 +99,26 @@ public class Cliente {
      * 
      * @param midia
      */
-    public void AdicionarMidiaFutura(Midia midia) {
+    public void AdicionarMidiaFutura(Midia midia) throws Exception {
         for (Midia midiaVerificar : midiasFuturas) {
             if (midiaVerificar.Id == midia.Id) {
-                System.out.println("Só é possível marcar para assistir futuramente uma vez");
-                return;
+                throw new Exception("Só é possível marcar para assistir futuramente uma vez");
             }
         }
         this.midiasFuturas.add(midia);
         String mensagem = midia.titulo + " marcado para assistir futuramente com sucesso!";
         System.out.println();
         System.out.println(mensagem);
+    }
+
+    /**
+     * Método para marcar uma mídia para assistir futuramente em carregamento de
+     * dados
+     * 
+     * @param midia
+     */
+    public void AdicionarMidiaFutura(Midia midia, boolean carregamento) {
+        this.midiasFuturas.add(midia);
     }
 
     /**

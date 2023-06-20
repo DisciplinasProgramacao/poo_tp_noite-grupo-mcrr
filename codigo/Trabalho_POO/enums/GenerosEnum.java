@@ -27,19 +27,4 @@ public enum GenerosEnum {
         return generos;
     }
 
-    /**
-     * Método de exibição dos generos
-     * 
-     */
-    public static void PrintEnums() {
-        System.out.println("1 - Ação");
-        System.out.println("2 - Anime");
-        System.out.println("3 - Aventura");
-        System.out.println("4 - Comédia");
-        System.out.println("5 - Documentário");
-        System.out.println("6 - Drama");
-        System.out.println("7 - Policial");
-        System.out.println("8 - Romance");
-        System.out.println("9 - Suspense");
-    }
 }

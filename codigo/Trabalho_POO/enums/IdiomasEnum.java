@@ -25,16 +25,4 @@ public enum IdiomasEnum {
         return generos;
     }
 
-    /**
-     * Método de exibição dos idiomas
-     */
-    public static void PrintEnums() {
-        System.out.println("1 - Inglês");
-        System.out.println("2 - Português");
-        System.out.println("3 - Francês");
-        System.out.println("4 - Alemão");
-        System.out.println("5 - Chinês");
-        System.out.println("6 - Espanhol");
-        System.out.println("7 - Italiano");
-    }
 }

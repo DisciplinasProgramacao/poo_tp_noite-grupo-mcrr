@@ -113,6 +113,7 @@ public class ServicoStreaming {
         }
         clienteAtual = null;
         Logout();
+        ClearScreen();
     }
 
     /**
@@ -141,8 +142,12 @@ public class ServicoStreaming {
      */
     public void AdicionarAssistida(Midia midia) {
         Audiencia audiencia = new Audiencia(clienteAtual.Login(), midia.Id, 'A');
-        clienteAtual.AdicionarMidiaAssistida(midia);
-        midia.AddAudiencia(audiencia);
+        try {
+            clienteAtual.AdicionarMidiaAssistida(midia);
+            midia.AddAudiencia(audiencia);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -153,8 +158,13 @@ public class ServicoStreaming {
      */
     public void AdicionarMidiaFutura(Midia midia) {
         Audiencia audiencia = new Audiencia(clienteAtual.Login(), midia.Id, 'F');
-        clienteAtual.AdicionarMidiaFutura(midia);
-        midia.AddAudiencia(audiencia);
+        try {
+            clienteAtual.AdicionarMidiaFutura(midia);
+            midia.AddAudiencia(audiencia);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     /**
@@ -499,97 +509,12 @@ public class ServicoStreaming {
     }
 
     /**
-     * Método de exibiçào de uma mídia
-     * 
-     * @param midia
-     * @return void
-     */
-    public void PrintMidia(Midia midia) {
-        if (clienteAtual.EhEspecialista()) {
-            if (midia instanceof Serie) {
-                Serie serie = (Serie) midia;
-                System.out.println("Titulo: " + serie.titulo);
-                System.out.println("Gêneros: " + serie.generos[0] + ", " + serie.generos[1]);
-                System.out.println("Idiomas: " + serie.idiomas[0] + ", " + serie.idiomas[1]);
-                System.out.println("Lançamento: " + (serie.EhLancamento() ? "Sim" : "Não"));
-                System.out.println("Avaliação: "
-                        + (serie.Avaliacoes().size() > 0 ? serie.MediaDeAvaliacoes() + "%" : "Ainda não avaliado"));
-
-            } else {
-                Filme filme = (Filme) midia;
-                System.out.println("Titulo: " + filme.titulo);
-                System.out.println("Duração: " + filme.duracao);
-                System.out.println("Gêneros: " + filme.generos[0] + ", " + filme.generos[1]);
-                System.out.println("Idiomas: " + filme.idiomas[0] + ", " + filme.idiomas[1]);
-                System.out.println("Lançamento: " + (filme.EhLancamento() ? "Sim" : "Não"));
-                System.out.println("Avaliação: "
-                        + (filme.Avaliacoes().size() > 0 ? filme.MediaDeAvaliacoes() + "%" : "Ainda não avaliado"));
-
-            }
-            System.out.println("-------------------------------------------------------");
-        } else {
-            if (!midia.EhLancamento()) {
-                if (midia instanceof Serie) {
-                    Serie serie = (Serie) midia;
-                    System.out.println("Titulo: " + serie.titulo);
-                    System.out.println("Gêneros: " + serie.generos[0] + ", " + serie.generos[1]);
-                    System.out.println("Idiomas: " + serie.idiomas[0] + ", " + serie.idiomas[1]);
-                    System.out.println("Lançamento: " + (serie.EhLancamento() ? "Sim" : "Não"));
-                    System.out.println("Avaliação: "
-                            + (serie.Avaliacoes().size() > 0.0 ? serie.MediaDeAvaliacoes() + "%"
-                                    : "Ainda não avaliado"));
-
-                } else {
-                    Filme filme = (Filme) midia;
-                    System.out.println("Titulo: " + filme.titulo);
-                    System.out.println("Duração: " + filme.duracao + " minutos");
-                    System.out.println("Gêneros: " + filme.generos[0] + ", " + filme.generos[1]);
-                    System.out.println("Idiomas: " + filme.idiomas[0] + ", " + filme.idiomas[1]);
-                    System.out.println("Lançamento: " + (filme.EhLancamento() ? "Sim" : "Não"));
-                    System.out.println("Avaliação: "
-                            + (filme.Avaliacoes().size() > 0 ? filme.MediaDeAvaliacoes() + "%" : "Ainda não avaliado"));
-
-                }
-                System.out.println("-------------------------------------------------------");
-            }
-
-        }
-    }
-
-    /**
      * Método getter que verifica o usuário atual
      * 
      * @return Cliente
      */
     public Cliente GetCliente() {
         return clienteAtual;
-    }
-
-    /**
-     * Método de exibição de comentários
-     * 
-     * @param midia
-     * @return void
-     */
-    public void PrintComentarios(Midia midia) {
-        ArrayList<Comentario> comentarios = midia.Comentarios();
-
-        if (comentarios.size() > 0) {
-            String mensagem = midia instanceof Serie ? "Comentários da série: " + midia.titulo
-                    : "Comentários do Filme: " + midia.titulo;
-            System.out.println(mensagem);
-            System.out.println();
-
-            for (Comentario comentario : comentarios) {
-                System.out.println(comentario.userLogin + ": " + comentario.comentario);
-                System.out.println();
-            }
-        } else {
-            String mensagem = midia instanceof Serie ? "Nenhum comentário ainda para a série: " + midia.titulo
-                    : "Nenhum comentário ainda para o filme: " + midia.titulo;
-            System.out.println(mensagem);
-        }
-
     }
 
     // #endregion Public
@@ -643,9 +568,9 @@ public class ServicoStreaming {
                     Midia midia = findMediaById(audienciaMapped.IdSerie);
                     midia.AddAudiencia(audienciaMapped);
                     if (audienciaMapped.tipo == 'F') {
-                        cliente.AdicionarMidiaFutura(midia);
+                        cliente.AdicionarMidiaFutura(midia, true);
                     } else {
-                        cliente.AdicionarMidiaAssistida(midia);
+                        cliente.AdicionarMidiaAssistida(midia, true);
                     }
                 } catch (Exception e) {
                     System.err.println(e);
